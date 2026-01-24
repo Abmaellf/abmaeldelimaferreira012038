@@ -57,5 +57,9 @@ Este projeto foi desenvolvido com dedicação por **Abmael de Lima Ferreira**.
 - 🐙 **GitHub:** [ https://github.com/Abmaellf ](https://github.com/Abmaellf)
 - 💼 **LinkedIn:** [in/abmaelferreira](https://www.linkedin.com/in/abmaelferreira/)
 
+###  👨 Metodologia de desenvolvimento
+###  👨 Histórico de commit
+        JPA, Postgre, Flyway, .env, .env.exemplo, dockefile e docker-compose.
+    ![img.png](img.png)
 ---
 

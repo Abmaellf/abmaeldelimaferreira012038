@@ -1,3 +1,25 @@
 spring:
   application:
     name: Select Music
+  datasource:
+    url: jdbc:postgresql://${DB_HOST_MUSIC}:${DB_PORT_MUSIC}/${DB_NAME_MUSIC}
+    username: "${DB_USER_MUSIC}"
+    password: ${DB_PASSWORD_MUSIC}
+    driver-class-name: org.postgresql.Driver
+
+
+  jpa:
+    hibernate:
+    ddl-auto: ${DB_DDL_AUTO_MUSIC}
+    show-sql: ${SHOW_SQL_MUSIC}
+
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
+    locations: classpath:db/migration
+    schemas: public
+
+
+  server:
+    port: ${APP_PORT_MUSIC}
