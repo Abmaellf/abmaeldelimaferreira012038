@@ -1,10 +1,14 @@
-## PROJETO PRÁTICO - IMPLEMENTAÇÃO BACK END JAVA SÊNIOR
- #### Candidato: 
+
+### PROCESSO SELETIVO CONJUNTO Nº 001/2026/SEPLAG e demais Órgãos - Engenheiro da Computação- Sênior
+### PROJETO PRÁTICO - IMPLEMENTAÇÃO BACK END JAVA SÊNIOR
+#### Número da inscrição: 16330
+#### Perfil: ENGENHEIRO DA COMPUTAÇÃO - SÊNIOR
+#### Candidato: 
     Abmael de Lima Ferreira
  #### Documentação
-    RG:
+    RG: 3142129-6
 #####
-    cpf:
+    cpf: 012.038.553-89
 <!-- https://github.com/Ileriayo/markdown-badges -->
 # Music
 
@@ -22,13 +26,6 @@ O **Music** é uma API REST que disponibiliza dados sobre **Artistas**  e  **Ál
 
 O **Music** é uma plataforma segura, pesquisas bem elaboradas; **Imagens**: permite efetuar upload de imagens;
 Bem documentado
-
-### ✨ Diferenciais de Destaque
-- **🎨 Design Deep Dark:** Interface otimizada para produtividade com fundo Pure Black (#000000) e acentos Sky Blue (#38BDF8).
-- **🛡️ Auditoria Avançada:** Sistema que registra snapshots de dados excluídos, permitindo que administradores restaurem recursos ao estado original.
-- **📱 Mobile-First:** Experiência fluida em qualquer dispositivo com menus adaptativos e componentes Vuetify 3 customizados.
-- **🚀 Performance:** Utilização de cache Redis L2 e UUIDs binários para garantir respostas rápidas mesmo com grande volume de dados.
-
 ---
 
 ## 📚 Documentação Técnica
