@@ -1,0 +1,27 @@
+
+services:
+  postgres:
+    image: postgres:15
+    container_name: postgreSQL
+    restart: always
+    environment:
+      POSTGRES_USER: "${DB_USER_MUSIC}"
+      POSTGRES_PASSWORD: "${DB_PASSWORD_MUSIC}"
+      POSTGRES_DB: "${DB_NAME_MUSIC}"
+    ports:
+      - "${DB_PORT_MUSIC}:${DB_PORT_MUSIC}"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER_MUSIC} -d ${DB_NAME_MUSIC}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # opcional, mas útil para debug:
+    logging:
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  postgres_data:
