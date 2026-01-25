@@ -32,11 +32,11 @@ Bem documentado
 
 Para detalhes profundos sobre como o sistema foi construído, consulte nossos guias especializados:
 
-- [📖 Introdução Geral](./docs/01-introducao.md)
-- [🏗️ Arquitetura e Decisões (ADRs)](./docs/02-arquitetura.md)
-- [📡 API REST e Contratos](./docs/04-api.md)
-- [🧪 Estratégia de Testes (Unit & E2E)](./docs/pt-br/06-testes.md)
-- [🗄️ Modelagem de Banco de Dados](./docs/pt-br/07-banco-dados.md)
+- [📖 Introdução Geral](./docs/guias/01-introducao.md)
+- [🏗️ Arquitetura e Decisões](./docs/guias/02-arquitetura.md)
+- [📡 API REST e Contratos](./docs/guias/03-api.md)
+- [🧪 Estratégia de Testes (Unit & E2E)](./docs/guia/04-testes.md)
+- [🗄️ Modelagem de Banco de Dados](./docs/guias/05-banco-dados.md)
 
 ---
 
@@ -45,7 +45,7 @@ Para detalhes profundos sobre como o sistema foi construído, consulte nossos gu
 ### Passo a Passo Rápido
 1.  **Clone o repositório:** `git clone https://github.com/Abmaellf/abmaeldelimaferreira012038.git`
 2.  **Configuração:** Copie o `.env.example` para `.env` e ajuste suas chaves.
-3.  **Docker:** Execute `./automation/run.sh` e escolha a opção **3**.
+3.  **Docker:** Execute ` comando ` .
 
 ---
 
@@ -60,6 +60,8 @@ Este projeto foi desenvolvido com dedicação por **Abmael de Lima Ferreira**.
 ###  👨 Metodologia de desenvolvimento
     Tarefas do projeto criadas via ClickUp
 [https://app.clickup.com/9013176627/v/b/li/901324721568](https://app.clickup.com/9013176627/v/b/li/901324721568) 
+
+![img_1.png](docs/image/img_1.png)
 ###  👨 Histórico de commit
         JPA, Postgre, Flyway, .env, .env.exemplo, dockefile e docker-compose.
     ![img.png](img.png)
