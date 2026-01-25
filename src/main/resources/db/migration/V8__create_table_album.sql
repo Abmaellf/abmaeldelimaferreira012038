@@ -6,4 +6,3 @@ CREATE TABLE IF NOT EXISTS album (
 );
 
 CREATE INDEX idx_album_name ON album (name);
-	
