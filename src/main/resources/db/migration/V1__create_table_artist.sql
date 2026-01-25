@@ -1,0 +1,14 @@
+CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+
+CREATE TYPE artist_type  AS ENUM ('BANDA', 'SOLO');
+
+CREATE TABLE IF NOT EXISTS artist (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name VARCHAR(255) NOT NULL,
+    type artist_type NOT NULL,
+    foundation DATE null,
+    created_at  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at  TIMESTAMP WITHOUT TIME ZONE NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_artist_name ON artist (name);
