@@ -58,6 +58,8 @@ Este projeto foi desenvolvido com dedicação por **Abmael de Lima Ferreira**.
 - 💼 **LinkedIn:** [in/abmaelferreira](https://www.linkedin.com/in/abmaelferreira/)
 
 ###  👨 Metodologia de desenvolvimento
+    Tarefas do projeto criadas via ClickUp
+[https://app.clickup.com/9013176627/v/b/li/901324721568](https://app.clickup.com/9013176627/v/b/li/901324721568) 
 ###  👨 Histórico de commit
         JPA, Postgre, Flyway, .env, .env.exemplo, dockefile e docker-compose.
     ![img.png](img.png)
