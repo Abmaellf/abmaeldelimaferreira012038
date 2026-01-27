@@ -1,5 +1,32 @@
 
 services:
+  app-music:
+    build: .
+    env_file:
+      - .env
+    ports:
+      - ${APP_PORT_MUSIC}:${APP_PORT_MUSIC}
+
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:${DB_PORT_MUSIC}/${DB_NAME_MUSIC}
+      DB_USER_MUSIC: ${DB_USER_MUSIC}
+      DB_PASSWORD_MUSIC: ${DB_PASSWORD_MUSIC}
+      DB_NAME_MUSIC: ${DB_NAME_MUSIC}
+      DB_HOST_MUSIC: ${DB_HOST_MUSIC}
+      DB_PORT_MUSIC: ${DB_PORT_MUSIC}
+      DB_DDL_AUTO_MUSIC: ${DB_DDL_AUTO_MUSIC}
+      DB_DRIVER_MUSIC: ${DB_DRIVER_MUSIC}
+
+      SPRING_DATASOURCE_URL_MUSIC: ${SPRING_DATASOURCE_URL_MUSIC}
+      SPRING_DATASOURCE_USERNAME_MUSIC: ${SPRING_DATASOURCE_USERNAME_MUSIC}
+      SHOW_SQL_MUSIC: ${SHOW_SQL_MUSIC}
+
+      APP_PORT_MUSIC: ${APP_PORT_MUSIC}
+
+      JWT_SECRET_MUSIC: ${JWT_SECRET_MUSIC}
+      JWT_EXPIRATION_MUSIC: ${JWT_EXPIRATION_MUSIC}
+    networks:
+      - network-app-music
   postgres:
     image: postgres:15
     container_name: postgreSQL
@@ -22,6 +49,10 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-
+    networks:
+      - network-app-music
 volumes:
   postgres_data:
+networks:
+  network-app-music:
+    driver: bridge
