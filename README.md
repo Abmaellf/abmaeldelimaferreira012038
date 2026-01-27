@@ -32,11 +32,11 @@ Bem documentado
 
 Para detalhes profundos sobre como o sistema foi construído, consulte nossos guias especializados:
 
-- [📖 Introdução Geral](./docs/guias/01-introducao.md)
+- [🗄️ Modelagem de Banco de Dados](docs/guias/01-banco-dados.md)
 - [🏗️ Arquitetura e Decisões](./docs/guias/02-arquitetura.md)
 - [📡 API REST e Contratos](./docs/guias/03-api.md)
 - [🧪 Estratégia de Testes (Unit & E2E)](./docs/guia/04-testes.md)
-- [🗄️ Modelagem de Banco de Dados](./docs/guias/05-banco-dados.md)
+
 
 ---
 
