@@ -1,4 +1,4 @@
-package select.music.music;
+package select.music;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
