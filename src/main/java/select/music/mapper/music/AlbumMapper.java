@@ -2,7 +2,6 @@ package select.music.mapper.music;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-import org.springframework.data.domain.Page;
 import select.music.domain.album.AlbumEntity;
 import select.music.dto.album.AlbumRequestDTO;
 import select.music.dto.album.AlbumResponseDTO;
@@ -19,6 +18,4 @@ public interface AlbumMapper {
     AlbumResponseDTO toResponse(AlbumEntity entity);
 
     AlbumResponseDTO toPageResponse(AlbumEntity entity);
-
-
 }

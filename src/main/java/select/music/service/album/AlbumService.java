@@ -14,6 +14,8 @@ public interface AlbumService {
 
     Page<AlbumResponseDTO> findAll(Pageable pageable);
 
+    Page<AlbumResponseDTO> findAllByArtist(UUID artistId, Pageable pageable);
+
     AlbumResponseDTO update(UUID id, AlbumRequestDTO request);
 
     void delete(UUID id);
