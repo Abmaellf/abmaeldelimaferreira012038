@@ -7,6 +7,8 @@ import select.music.domain.artist.ArtistEntity;
 import select.music.dto.artist.ArtistRequest;
 import select.music.dto.artist.ArtistResponse;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ArtistMapper {
 
@@ -16,6 +18,8 @@ public interface ArtistMapper {
     ArtistEntity toEntity(ArtistRequest request);
 
     ArtistResponse toResponse(ArtistEntity entity);
+
+    List<ArtistResponse> toResponseList(List<ArtistEntity> entity);
 
     void updateEntity(@MappingTarget ArtistEntity entity, ArtistRequest request);
 }

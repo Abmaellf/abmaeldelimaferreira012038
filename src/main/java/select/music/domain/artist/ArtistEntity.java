@@ -1,12 +1,16 @@
 package select.music.domain.artist;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
+import select.music.domain.album.AlbumEntity;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -36,6 +40,10 @@ public class ArtistEntity {
 
     @Column(name="updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    @JsonIgnore
+    @ManyToMany(mappedBy = "artists")
+    private Set<AlbumEntity> albums = new HashSet<>();
 
     @PrePersist
     void prePersist() {

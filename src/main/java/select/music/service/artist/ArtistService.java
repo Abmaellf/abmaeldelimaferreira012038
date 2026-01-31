@@ -7,10 +7,13 @@ import select.music.dto.artist.ArtistRequest;
 import select.music.dto.artist.ArtistResponse;
 import select.music.repository.artist.ArtistRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 
 public interface ArtistService {
+    List<ArtistResponse> findAll();
+
     ArtistResponse create(ArtistRequest request);
 
     ArtistResponse update(UUID id, ArtistRequest request);

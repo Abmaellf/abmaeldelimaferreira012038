@@ -9,6 +9,7 @@ import select.music.dto.artist.ArtistResponse;
 import select.music.service.artist.ArtistService;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
@@ -21,6 +22,12 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 public class ArtistController {
 
     private final ArtistService artistService;
+
+    @GetMapping
+    public ResponseEntity<List<ArtistResponse>> findAll() {
+
+        return ResponseEntity.ok(artistService.findAll());
+    }
 
     @PostMapping
     public ResponseEntity<EntityModel<ArtistResponse>> create(@RequestBody ArtistRequest artistRequest) {

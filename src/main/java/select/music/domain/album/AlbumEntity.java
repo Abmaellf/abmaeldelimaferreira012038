@@ -2,8 +2,11 @@ package select.music.domain.album;
 
 import jakarta.persistence.*;
 import lombok.*;
+import select.music.domain.artist.ArtistEntity;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
 
 @Entity
@@ -27,6 +30,14 @@ public class AlbumEntity {
 
     @Column(name = "updated_at", nullable = false)
     LocalDateTime updatedAt;
+
+    @ManyToMany
+    @JoinTable(
+            name = "album_artist",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "artist_id")
+    )
+    private Set<ArtistEntity> artists = new HashSet<>();
 
     @PrePersist
     public void prePersist(){
