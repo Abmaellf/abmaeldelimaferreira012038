@@ -10,7 +10,7 @@ import select.music.dto.album.AlbumRequestDTO;
 import select.music.dto.album.AlbumResponseDTO;
 import select.music.exception.ArtistNotFoundException;
 import select.music.mapper.music.AlbumMapper;
-import select.music.repository.AlbumRepository;
+import select.music.repository.album.AlbumRepository;
 import select.music.repository.artist.ArtistRepository;
 
 import java.util.Set;
@@ -45,6 +45,17 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public AlbumResponseDTO findById(UUID id) {
         return albumMapper.toResponse(albumRepository.findById(id).orElseThrow());
+    }
+
+    @Override
+    public Page<AlbumResponseDTO> findAllByArtist(UUID artistId, Pageable pageable) {
+
+        // valida se o artista existe (regra de negócio)
+        artistRepository.findById(artistId)
+                .orElseThrow(() -> new ArtistNotFoundException(artistId));
+
+        return albumRepository.findAllByArtistId(artistId, pageable)
+                .map(albumMapper::toPageResponse);
     }
 
     @Override
