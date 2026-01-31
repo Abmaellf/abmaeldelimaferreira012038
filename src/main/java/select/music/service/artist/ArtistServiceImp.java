@@ -11,6 +11,7 @@ import select.music.exception.ArtistNotFoundException;
 import select.music.mapper.artist.ArtistMapper;
 import select.music.repository.artist.ArtistRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,6 +20,12 @@ import java.util.UUID;
 public class ArtistServiceImp implements  ArtistService {
     private final ArtistRepository artistRepository;
     private final ArtistMapper artistMapper;
+
+    @Override
+    public List<ArtistResponse> findAll() {
+
+       return artistMapper.toResponseList(artistRepository.findAll());
+    }
 
     @Override
     public ArtistResponse create(ArtistRequest artistRequest) {
