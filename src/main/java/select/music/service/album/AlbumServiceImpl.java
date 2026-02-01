@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import select.music.domain.album.AlbumEntity;
 import select.music.domain.artist.ArtistEntity;
+import select.music.domain.artist.ArtistType;
 import select.music.dto.album.AlbumRequestDTO;
 import select.music.dto.album.AlbumResponseDTO;
 import select.music.exception.ArtistNotFoundException;
@@ -13,6 +14,8 @@ import select.music.mapper.music.AlbumMapper;
 import select.music.repository.album.AlbumRepository;
 import select.music.repository.artist.ArtistRepository;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -63,6 +66,23 @@ public class AlbumServiceImpl implements AlbumService {
 
         return albumRepository.findAll(pageable)
                 .map(albumMapper::toPageResponse);
+    }
+
+    @Override
+    public Page<AlbumResponseDTO> findAllWithFilters(
+            Set<ArtistType> artistTypes,
+            LocalDate createdAfter,
+            Pageable pageable
+    ) {
+        return albumRepository.findAllWithFilters(
+                artistTypes == null || artistTypes.isEmpty()
+                        ? null
+                        : artistTypes,
+                createdAfter == null
+                        ? null
+                        : createdAfter.atStartOfDay(),
+                pageable
+        ).map(albumMapper::toPageResponse);
     }
 
     @Override

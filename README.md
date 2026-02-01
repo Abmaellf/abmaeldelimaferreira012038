@@ -33,6 +33,7 @@ Bem documentado
 Para detalhes profundos sobre como o sistema foi construído, consulte nossos guias especializados:
 
 - [🗄️ Modelagem de Banco de Dados](docs/guias/01-banco-dados.md)
+- [🗄️ Analise de requisitos](docs/guias/05-analise-requisitos.md)
 - [🏗️ Arquitetura e Decisões](./docs/guias/02-arquitetura.md)
 - [📡 API REST e Contratos](./docs/guias/03-api.md)
 - [🧪 Estratégia de Testes (Unit & E2E)](./docs/guia/04-testes.md)
@@ -62,8 +63,7 @@ Este projeto foi desenvolvido com dedicação por **Abmael de Lima Ferreira**.
 [https://app.clickup.com/9013176627/v/b/li/901324721568](https://app.clickup.com/9013176627/v/b/li/901324721568) 
 
 ![img_1.png](docs/image/img_1.png)
-###  👨 Histórico de commit
-        JPA, Postgre, Flyway, .env, .env.exemplo, dockefile e docker-compose.
-    ![img.png](img.png)
+###  👨 Analise de requisitos
+        
 ---
 

@@ -4,13 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.hateoas.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import select.music.domain.artist.ArtistType;
 import select.music.dto.album.AlbumRequestDTO;
 import select.music.dto.album.AlbumResponseDTO;
 import select.music.service.album.AlbumService;
 
+import java.time.LocalDate;
+import java.util.Set;
 import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -69,6 +73,32 @@ public class AlbumController {
         );
 
         return ResponseEntity.ok(model);
+    }
+
+    @GetMapping("/filters")
+    public ResponseEntity<PagedModel<EntityModel<AlbumResponseDTO>>> findFilters (
+            @RequestParam(required = false) Set<ArtistType> artistType,
+            @RequestParam(required = false)
+            @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+            LocalDate createdAfter,
+            Pageable pageable
+    ){
+        Page<AlbumResponseDTO> page = service.findAllWithFilters(
+                artistType,
+                createdAfter,
+                pageable
+        );
+
+        PagedModel<EntityModel<AlbumResponseDTO>> model = assembler.toModel(
+                page,
+                album -> EntityModel.of(
+                        album,
+                        linkTo(methodOn(AlbumController.class)
+                                .getById(album.id()))
+                                .withSelfRel()
+                )
+        );
+         return ResponseEntity.ok(model);
     }
 
     @PutMapping("/{id}")
