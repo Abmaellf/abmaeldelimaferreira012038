@@ -4,12 +4,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import select.music.dto.user.UserDetailDTO;
 import select.music.dto.user.UserRequestDTO;
 import select.music.dto.user.UserResponseDTO;
 import select.music.service.user.UserService;
 
 import java.net.URI;
+import java.util.List;
 import java.util.UUID;
 
 import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
@@ -54,5 +54,10 @@ public class UserController {
 
         return ResponseEntity.ok(model);
     }
-}
 
+    @GetMapping()
+    public ResponseEntity<List<UserResponseDTO>> findAll() {
+
+        return ResponseEntity.ok(service.findAll());
+    }
+}

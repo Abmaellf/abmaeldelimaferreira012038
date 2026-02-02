@@ -1,12 +1,11 @@
 package select.music.mapper.user;
 
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.springframework.security.core.userdetails.UserDetails;
 import select.music.domain.user.UserEntity;
-import select.music.dto.user.UserDetailDTO;
 import select.music.dto.user.UserRequestDTO;
 import select.music.dto.user.UserResponseDTO;
+
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
@@ -15,5 +14,6 @@ public interface UserMapper {
 
     UserResponseDTO toResponse(UserEntity entity);
 
-}
+    List<UserResponseDTO> toListResponse(List<UserEntity> entitys);
 
+}
