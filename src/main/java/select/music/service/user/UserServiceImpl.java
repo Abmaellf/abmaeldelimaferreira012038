@@ -1,11 +1,9 @@
 package select.music.service.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import select.music.dto.user.UserDetailDTO;
 import select.music.dto.user.UserRequestDTO;
 import select.music.dto.user.UserResponseDTO;
 import select.music.exception.LoginAlreadyExistsException;
@@ -13,6 +11,7 @@ import select.music.exception.UserNotFoundException;
 import select.music.mapper.user.UserMapper;
 import select.music.repository.UserRepository;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -32,7 +31,7 @@ public class UserServiceImpl implements UserService {
 
         var entity = mapper.toEntity(request);
         String encryptedPassword = new BCryptPasswordEncoder().encode(request.password());
-            entity.setPassword(encryptedPassword);
+        entity.setPassword(encryptedPassword);
         var saved = repository.save(entity);
 
         return mapper.toResponse(saved);
@@ -46,5 +45,9 @@ public class UserServiceImpl implements UserService {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<UserResponseDTO> findAll(){
+        return mapper.toListResponse(repository.findAll());
+    }
 }
-
