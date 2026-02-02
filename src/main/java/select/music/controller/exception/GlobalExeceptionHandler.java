@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import select.music.exception.ArtistAlreadyExistsException;
 import select.music.exception.ArtistNotFoundException;
+import select.music.exception.LoginAlreadyExistsException;
+import select.music.exception.UserNotFoundException;
 
 import java.time.LocalDateTime;
 
@@ -29,6 +31,7 @@ public class GlobalExeceptionHandler {
                     ));
     }
 
+    @ExceptionHandler(ArtistAlreadyExistsException.class)
     public ResponseEntity<ApiError> handlerConflit(
             ArtistAlreadyExistsException ex,
             HttpServletRequest request
@@ -52,6 +55,36 @@ public class GlobalExeceptionHandler {
                 .body(new ApiError(
                         HttpStatus.INTERNAL_SERVER_ERROR.value(),
                         HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
+                        ex.getMessage(),
+                        request.getRequestURI(),
+                        LocalDateTime.now()
+                ));
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ApiError> handleUserNotFound(
+            UserNotFoundException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)
+                .body(new ApiError(
+                        HttpStatus.NOT_FOUND.value(),
+                        HttpStatus.NOT_FOUND.getReasonPhrase(),
+                        ex.getMessage(),
+                        request.getRequestURI(),
+                        LocalDateTime.now()
+                ));
+    }
+
+    @ExceptionHandler(LoginAlreadyExistsException.class)
+    public ResponseEntity<ApiError> handleUserConflict(
+            LoginAlreadyExistsException ex,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.status(HttpStatus.CONFLICT)
+                .body(new ApiError(
+                        HttpStatus.CONFLICT.value(),
+                        HttpStatus.CONFLICT.getReasonPhrase(),
                         ex.getMessage(),
                         request.getRequestURI(),
                         LocalDateTime.now()
