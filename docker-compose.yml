@@ -25,6 +25,8 @@ services:
 #
 #      JWT_SECRET_MUSIC: ${JWT_SECRET_MUSIC}
 #      JWT_EXPIRATION_MUSIC: ${JWT_EXPIRATION_MUSIC}
+#       SEED_PASSWORD_ADMIN_MUSIC: ${SEED_PASSWORD_ADMIN_MUSIC}
+#        SEED_EMAIL_ADMIN_MUSIC: ${SEED_EMAIL_ADMIN_MUSIC}
 #    networks:
 #      - network-app-music
   postgres:
