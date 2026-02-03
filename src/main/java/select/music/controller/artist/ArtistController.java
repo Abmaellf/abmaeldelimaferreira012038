@@ -17,7 +17,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 
 @RestController
-@RequestMapping("api/v1")
+@RequestMapping("api/v1/artist")
 @RequiredArgsConstructor
 public class ArtistController {
 
