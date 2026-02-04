@@ -26,6 +26,9 @@ public class AlbumImageEntity {
     @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
+    @Column(name = "object_key", nullable = false)
+    private String objectKey;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;
 

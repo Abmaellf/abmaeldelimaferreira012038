@@ -6,12 +6,15 @@ import select.music.dto.album.AlbumRequestDTO;
 import select.music.dto.album.AlbumResponseDTO;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
 public interface AlbumService {
 
     AlbumResponseDTO create(AlbumRequestDTO request);
+
+    List<String> listPresignedImages(UUID id);
 
     AlbumResponseDTO findById(UUID id);
 
