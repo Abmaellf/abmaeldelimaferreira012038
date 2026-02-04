@@ -13,7 +13,6 @@ import select.music.service.storage.StorageService;
 
 import java.util.List;
 import java.util.UUID;
-
 @Service
 @RequiredArgsConstructor
 @Transactional
@@ -32,10 +31,17 @@ public class AlbumImageService {
 
         List<AlbumImageEntity> images = files.stream()
                 .map(file -> {
-                    String url = storageService.upload(file, "albums/" + albumId);
 
+                    // 1️⃣ Gera um objectKey seguro e único
+                    String objectKey = generateObjectKey(albumId, file);
+
+                    // 2️⃣ Faz upload usando o MESMO objectKey
+                    String url = storageService.upload(file, objectKey);
+
+                    // 3️⃣ Persiste corretamente
                     return AlbumImageEntity.builder()
                             .album(album)
+                            .objectKey(objectKey)
                             .imageUrl(url)
                             .build();
                 })
@@ -43,4 +49,20 @@ public class AlbumImageService {
 
         return albumImageRepository.saveAll(images);
     }
+
+    private String generateObjectKey(UUID albumId, MultipartFile file) {
+        String originalName = file.getOriginalFilename();
+        String extension = "";
+
+        if (originalName != null && originalName.contains(".")) {
+            extension = originalName.substring(originalName.lastIndexOf("."));
+        }
+
+        return "albums/%s/%s%s".formatted(
+                albumId,
+                UUID.randomUUID(),
+                extension
+        );
+    }
 }
+

@@ -14,6 +14,7 @@ import select.music.dto.album.AlbumResponseDTO;
 import select.music.service.album.AlbumService;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 
@@ -26,6 +27,12 @@ public class AlbumController {
 
     private final AlbumService service;
     private final PagedResourcesAssembler<AlbumResponseDTO> assembler;
+
+    @GetMapping("/{albumId}/images")
+    public List<String> listAlbumImages(@PathVariable UUID albumId) {
+        return service.listPresignedImages(albumId);
+    }
+
 
     @PostMapping
     public ResponseEntity<EntityModel<AlbumResponseDTO>> create(@RequestBody AlbumRequestDTO request) {

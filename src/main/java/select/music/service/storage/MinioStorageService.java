@@ -1,9 +1,7 @@
 package select.music.service.storage;
 
-import io.minio.BucketExistsArgs;
-import io.minio.MakeBucketArgs;
-import io.minio.MinioClient;
-import io.minio.PutObjectArgs;
+import io.minio.*;
+import io.minio.http.Method;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +18,22 @@ public class MinioStorageService implements StorageService {
 
     private final MinioClient minioClient;
     private final MinioProperties properties;
+
+    public String generatePresignedUrl(String objectKey) {
+        try {
+            return minioClient.getPresignedObjectUrl(
+                    GetPresignedObjectUrlArgs.builder()
+                            .method(Method.GET)
+                            .bucket(properties.getBucket())
+                            .object(objectKey)
+                            .expiry(30 * 60) // 30 minutos
+                            .build()
+            );
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao gerar URL temporária", e);
+        }
+    }
+
 
     @PostConstruct
     void ensureBucketExists() {
