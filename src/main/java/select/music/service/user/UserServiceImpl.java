@@ -9,7 +9,7 @@ import select.music.dto.user.UserResponseDTO;
 import select.music.exception.LoginAlreadyExistsException;
 import select.music.exception.UserNotFoundException;
 import select.music.mapper.user.UserMapper;
-import select.music.repository.UserRepository;
+import select.music.repository.user.UserRepository;
 
 import java.util.List;
 import java.util.UUID;

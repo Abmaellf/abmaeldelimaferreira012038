@@ -23,9 +23,6 @@ public class TokenService {
         return Keys.hmacShaKeyFor(secret.getBytes(StandardCharsets.UTF_8));
     }
 
-    /* =========================
-       GERAÇÃO DO TOKEN
-       ========================= */
     public String generateToken(UserDetails userDetails) {
 
         return Jwts.builder()
@@ -36,16 +33,10 @@ public class TokenService {
                 .compact();
     }
 
-    /* =========================
-       EXTRAÇÃO DO SUBJECT
-       ========================= */
     public String extractUsername(String token) {
         return getClaims(token).getSubject();
     }
 
-    /* =========================
-       VALIDAÇÃO DO TOKEN
-       ========================= */
     public boolean isTokenValid(String token, UserDetails userDetails) {
         String username = extractUsername(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
