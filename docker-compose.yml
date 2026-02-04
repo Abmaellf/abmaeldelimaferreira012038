@@ -25,15 +25,50 @@ services:
 #
 #      JWT_SECRET_MUSIC: ${JWT_SECRET_MUSIC}
 #      JWT_EXPIRATION_MUSIC: ${JWT_EXPIRATION_MUSIC}
-#      JWT_REFRESH_EXPIRATION_MUSIC= ${JWT_REFRESH_EXPIRATION_MUSIC}
-#     SEED_PASSWORD_ADMIN_MUSIC: ${SEED_PASSWORD_ADMIN_MUSIC}
-#     SEED_EMAIL_ADMIN_MUSIC: ${SEED_EMAIL_ADMIN_MUSIC}
-#     CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
-#      JWT_REFRESH_EXPIRATION_MUSIC=500000
-#      COOKIES_SECURE_MUSIC=true
-#      SAME_SITE_MUSIC=None
+#      JWT_REFRESH_EXPIRATION_MUSIC: ${JWT_REFRESH_EXPIRATION_MUSIC}
+#      SEED_PASSWORD_ADMIN_MUSIC: ${SEED_PASSWORD_ADMIN_MUSIC}
+#      SEED_EMAIL_ADMIN_MUSIC: ${SEED_EMAIL_ADMIN_MUSIC}
+#      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+#      COOKIES_SECURE_MUSIC: true
+#      SAME_SITE_MUSIC: None
 #    networks:
 #      - network-app-music
+
+  minio:
+    image: quay.io/minio/minio:latest
+    container_name: minio
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+    volumes:
+      - data-minio:/data
+    networks:
+      - network-app-music
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://localhost:9000/minio/health/live" ]
+      interval: 30s
+      timeout: 20s
+      retries: 3
+
+  minio-buckets:
+    image: quay.io/minio/mc:latest
+    container_name: minio-buckets
+    depends_on:
+      minio:
+        condition: service_healthy
+    networks:
+      - network-app-music
+    entrypoint: >
+      /bin/sh -c "
+      mc alias set local http://minio:9000 ${MINIO_ROOT_USER} ${MINIO_ROOT_PASSWORD} &&
+      mc mb --ignore-existing local/${MINIO_BUCKET} &&
+      mc anonymous set download local/${MINIO_BUCKET} &&
+      exit 0;
+      "
   postgres:
     image: postgres:15
     container_name: postgreSQL
@@ -60,6 +95,7 @@ services:
       - network-app-music
 volumes:
   postgres_data:
+  data-minio:
 networks:
   network-app-music:
     driver: bridge
