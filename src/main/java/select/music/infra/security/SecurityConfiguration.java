@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST,"/api/v1/users/create").permitAll()
                         .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET,"api/v1/artist").permitAll()
+                        .requestMatchers(HttpMethod.POST,"api/v1/albums/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)

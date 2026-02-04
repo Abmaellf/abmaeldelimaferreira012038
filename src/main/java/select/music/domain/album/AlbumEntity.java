@@ -39,6 +39,14 @@ public class AlbumEntity {
     )
     private Set<ArtistEntity> artists = new HashSet<>();
 
+    @OneToMany(
+            mappedBy = "album",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private Set<AlbumImageEntity> images = new HashSet<>();
+
+
     @PrePersist
     public void prePersist(){
         var now = LocalDateTime.now();
