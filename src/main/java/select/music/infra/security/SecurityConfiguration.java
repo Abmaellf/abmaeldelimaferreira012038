@@ -22,6 +22,8 @@ public class SecurityConfiguration {
 
     @Autowired
     private SecurityFilter securityFilter;
+    @Autowired
+    private RateLimitFilter rateLimitFilter;
 
     @Autowired
     private CorsConfigurationSource corsConfigurationSource;
@@ -38,6 +40,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST,"/auth/login").permitAll()
                         .requestMatchers(HttpMethod.GET,"api/v1/artist").permitAll()
                         .requestMatchers(HttpMethod.POST,"api/v1/albums/**").permitAll()
+                        .requestMatchers("/ws/**").permitAll()
                         .requestMatchers(
                                 "/v3/api-docs/**",
                                 "/swagger-ui/**",
@@ -45,6 +48,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(rateLimitFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

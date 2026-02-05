@@ -1,6 +1,7 @@
 package select.music.service.album;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -10,6 +11,7 @@ import select.music.domain.artist.ArtistEntity;
 import select.music.domain.artist.ArtistType;
 import select.music.dto.album.AlbumRequestDTO;
 import select.music.dto.album.AlbumResponseDTO;
+import select.music.event.album.AlbumCreatedEvent;
 import select.music.exception.ArtistNotFoundException;
 import select.music.mapper.music.AlbumMapper;
 import select.music.repository.album.AlbumImageRepository;
@@ -31,6 +33,7 @@ public class AlbumServiceImpl implements AlbumService {
     private final ArtistRepository artistRepository;
     private final AlbumImageRepository albumImageRepository;
     private final MinioStorageService minioStorageService;
+    private final ApplicationEventPublisher publisher;
 
     public List<String> listPresignedImages(UUID albumId) {
         List<AlbumImageEntity> images =
@@ -56,6 +59,7 @@ public class AlbumServiceImpl implements AlbumService {
         albumEntity.setArtists(artistEntitySet);
 
         AlbumEntity saved = albumRepository.save(albumEntity);
+        publisher.publishEvent(new AlbumCreatedEvent(albumMapper.toResponse(saved)));
 
         return albumMapper.toResponse(saved);
     }
