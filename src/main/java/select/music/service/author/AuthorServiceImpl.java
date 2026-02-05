@@ -7,8 +7,8 @@ import select.music.dto.author.AuthorRequest;
 import select.music.dto.author.AuthorResponse;
 import select.music.exception.AuthorAlreadyExistsException;
 import select.music.exception.AuthorNotFoundException;
-import select.music.mapper.AuthorMapper;
-import select.music.repository.AuthorRepository;
+import select.music.mapper.author.AuthorMapper;
+import select.music.repository.author.AuthorRepository;
 
 import java.util.UUID;
 

@@ -3,6 +3,7 @@ package select.music.domain.album;
 import jakarta.persistence.*;
 import lombok.*;
 import select.music.domain.artist.ArtistEntity;
+import select.music.domain.music.MusicEntity;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
@@ -38,6 +39,16 @@ public class AlbumEntity {
             inverseJoinColumns = @JoinColumn(name = "artist_id")
     )
     private Set<ArtistEntity> artists = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "album_music",
+            joinColumns = @JoinColumn(name = "album_id"),
+            inverseJoinColumns = @JoinColumn(name = "music_id")
+    )
+    private Set<MusicEntity> musics = new HashSet<>();
+
+
 
     @OneToMany(
             mappedBy = "album",

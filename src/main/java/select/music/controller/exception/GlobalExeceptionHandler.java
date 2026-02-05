@@ -1,6 +1,7 @@
 package select.music.controller.exception;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -12,23 +13,16 @@ import select.music.exception.UserNotFoundException;
 
 import java.time.LocalDateTime;
 
-
+@Slf4j
 @RestControllerAdvice
 public class GlobalExeceptionHandler {
 
     @ExceptionHandler(ArtistNotFoundException.class)
-    public ResponseEntity<ApiError> handleNotFound(
+    public ResponseEntity<ApiError> handleArtistNotFound(
             ArtistNotFoundException ex,
             HttpServletRequest request
-        ){
-            return ResponseEntity.status((HttpStatus.NOT_FOUND))
-                    .body(new ApiError(
-                            HttpStatus.NOT_FOUND.value(),
-                            HttpStatus.NOT_FOUND.getReasonPhrase(),
-                            ex.getMessage(),
-                            request.getRequestURI(),
-                            LocalDateTime.now()
-                    ));
+    ) {
+        return buildError(HttpStatus.NOT_FOUND, ex.getMessage(), request);
     }
 
     @ExceptionHandler(ArtistAlreadyExistsException.class)
@@ -36,14 +30,7 @@ public class GlobalExeceptionHandler {
             ArtistAlreadyExistsException ex,
             HttpServletRequest request
     ) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
-                .body(new ApiError(
-                        HttpStatus.CONFLICT.value(),
-                        HttpStatus.CONFLICT.getReasonPhrase(),
-                        ex.getMessage(),
-                        request.getRequestURI(),
-                        LocalDateTime.now()
-                ));
+        return buildError(HttpStatus.CONFLICT, ex.getMessage(), request );
     }
 
     @ExceptionHandler(Exception.class)
@@ -51,14 +38,9 @@ public class GlobalExeceptionHandler {
             Exception ex,
             HttpServletRequest request
     ) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(new ApiError(
-                        HttpStatus.INTERNAL_SERVER_ERROR.value(),
-                        HttpStatus.INTERNAL_SERVER_ERROR.getReasonPhrase(),
-                        ex.getMessage(),
-                        request.getRequestURI(),
-                        LocalDateTime.now()
-                ));
+        log.error("Unexpected error", ex);
+
+        return buildError(HttpStatus.INTERNAL_SERVER_ERROR, ex.getMessage(), request);
     }
 
     @ExceptionHandler(UserNotFoundException.class)
@@ -81,14 +63,23 @@ public class GlobalExeceptionHandler {
             LoginAlreadyExistsException ex,
             HttpServletRequest request
     ) {
-        return ResponseEntity.status(HttpStatus.CONFLICT)
+        return buildError(HttpStatus.CONFLICT, ex.getMessage(), request);
+    }
+
+    private ResponseEntity<ApiError> buildError(
+            HttpStatus status,
+            String message,
+            HttpServletRequest request
+    ) {
+        return ResponseEntity.status(status)
                 .body(new ApiError(
-                        HttpStatus.CONFLICT.value(),
-                        HttpStatus.CONFLICT.getReasonPhrase(),
-                        ex.getMessage(),
+                        status.value(),
+                        status.getReasonPhrase(),
+                        message,
                         request.getRequestURI(),
                         LocalDateTime.now()
                 ));
     }
+
 
 }

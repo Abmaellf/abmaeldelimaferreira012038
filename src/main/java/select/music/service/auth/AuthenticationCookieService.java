@@ -25,8 +25,8 @@ public class AuthenticationCookieService {
     public void addAuthCookie(HttpServletResponse response, String token) {
         ResponseCookie cookie = ResponseCookie.from(COOKIE_NAME, token)
                 .httpOnly(true)
-                .secure(secure)              // produção true
-                .sameSite("None")          // se cross-site, se for em outro dominio use "Lax"
+                .secure(false)              // produção true
+                .sameSite("Lax")          // se cross-site, se for em outro dominio use "Lax"
                 .path("/")
                 .maxAge(Duration.ofHours(1))
                 .build();
@@ -37,8 +37,8 @@ public class AuthenticationCookieService {
     public void addRefreshTokenCookie(HttpServletResponse response, String refreshToken) {
         ResponseCookie cookie = ResponseCookie.from("refresh_token", refreshToken)
                 .httpOnly(true)
-                .secure(secure)
-                .sameSite("None")
+                .secure(false)
+                .sameSite("Lax")
                 .path("/")
                 .maxAge(Duration.ofDays(30))
                 .build();
