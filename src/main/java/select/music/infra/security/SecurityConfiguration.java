@@ -22,6 +22,8 @@ public class SecurityConfiguration {
 
     @Autowired
     private SecurityFilter securityFilter;
+    @Autowired
+    private RateLimitFilter rateLimitFilter;
 
     @Autowired
     private CorsConfigurationSource corsConfigurationSource;
@@ -46,6 +48,7 @@ public class SecurityConfiguration {
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
+                .addFilterBefore(rateLimitFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
