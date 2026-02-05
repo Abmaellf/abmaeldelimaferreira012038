@@ -9,7 +9,6 @@ public interface MusicMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "author", ignore = true)
-    @Mapping(target = "album", ignore = true)
     MusicEntity toEntity(MusicRequest request);
 
     @Mapping(source = "author.id", target = "authorId")

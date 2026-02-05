@@ -1,5 +1,6 @@
 package select.music.infra.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -31,37 +32,44 @@ public class SecurityFilter extends OncePerRequestFilter {
             FilterChain filterChain
     ) throws ServletException, IOException {
 
-        String authHeader = request.getHeader("Authorization");
+        String token = recoverToken(request);
 
-
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String token = authHeader.substring(7);
-//        var token = recoverToken(request);
-        String username = tokenService.extractUsername(token);
+        try {
+            String username = tokenService.extractUsername(token);
 
-        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+            if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-            UserDetails userDetails = userRepository.findByLogin(username).orElseThrow();
+                UserDetails userDetails =
+                        userRepository.findByLogin(username).orElseThrow();
 
-            if (tokenService.isTokenValid(token, userDetails)) {
+                if (tokenService.isTokenValid(token, userDetails)) {
 
-                UsernamePasswordAuthenticationToken authentication =
-                        new UsernamePasswordAuthenticationToken(
-                                userDetails,
-                                null,
-                                userDetails.getAuthorities()
-                        );
+                    UsernamePasswordAuthenticationToken authentication =
+                            new UsernamePasswordAuthenticationToken(
+                                    userDetails,
+                                    null,
+                                    userDetails.getAuthorities()
+                            );
 
-                authentication.setDetails(
-                        new WebAuthenticationDetailsSource().buildDetails(request)
-                );
+                    authentication.setDetails(
+                            new WebAuthenticationDetailsSource().buildDetails(request)
+                    );
 
-                SecurityContextHolder.getContext().setAuthentication(authentication);
+                    SecurityContextHolder.getContext().setAuthentication(authentication);
+                }
             }
+
+        } catch (ExpiredJwtException e) {
+            // JWT expirado → segue sem autenticar
+            SecurityContextHolder.clearContext();
+        } catch (Exception e) {
+            // JWT inválido/corrompido
+            SecurityContextHolder.clearContext();
         }
 
         filterChain.doFilter(request, response);
