@@ -1,0 +1,8 @@
+package select.music.dto.author;
+
+import jakarta.validation.constraints.NotBlank;
+
+public record AuthorRequest(
+        @NotBlank String name
+) {}
+
