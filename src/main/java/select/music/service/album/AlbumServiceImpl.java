@@ -5,22 +5,27 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import select.music.domain.album.AlbumEntity;
 import select.music.domain.album.AlbumImageEntity;
 import select.music.domain.artist.ArtistEntity;
 import select.music.domain.artist.ArtistType;
+import select.music.domain.author.AuthorEntity;
+import select.music.domain.music.MusicEntity;
 import select.music.dto.album.AlbumRequestDTO;
 import select.music.dto.album.AlbumResponseDTO;
 import select.music.event.album.AlbumCreatedEvent;
 import select.music.exception.ArtistNotFoundException;
-import select.music.mapper.music.AlbumMapper;
+import select.music.exception.AuthorNotFoundException;
+import select.music.mapper.album.AlbumMapper;
+import select.music.mapper.music.MusicMapper;
 import select.music.repository.album.AlbumImageRepository;
 import select.music.repository.album.AlbumRepository;
 import select.music.repository.artist.ArtistRepository;
+import select.music.repository.author.AuthorRepository;
 import select.music.service.storage.MinioStorageService;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
@@ -34,6 +39,8 @@ public class AlbumServiceImpl implements AlbumService {
     private final AlbumImageRepository albumImageRepository;
     private final MinioStorageService minioStorageService;
     private final ApplicationEventPublisher publisher;
+    private final AuthorRepository authorRepository;
+    private final MusicMapper musicMapper;
 
     public List<String> listPresignedImages(UUID albumId) {
         List<AlbumImageEntity> images =
@@ -46,6 +53,7 @@ public class AlbumServiceImpl implements AlbumService {
 
 
     @Override
+    @Transactional
     public AlbumResponseDTO create(AlbumRequestDTO request) {
 
         AlbumEntity albumEntity = albumMapper.toEntity(request);
@@ -56,7 +64,27 @@ public class AlbumServiceImpl implements AlbumService {
                 )
                 .collect(Collectors.toSet());
 
+        // 🎵 Musics (OBJETOS)
+        Set<MusicEntity> musics = request.musics().stream()
+                .map(req -> {
+
+                    AuthorEntity author = authorRepository.findById(req.authorId())
+                            .orElseThrow(() -> new AuthorNotFoundException(req.authorId()));
+
+                    MusicEntity music = musicMapper.toEntity(req);
+                    music.setAuthor(author);
+
+                    return music;
+                })
+                .collect(Collectors.toSet());
+
+        albumEntity.setMusics(musics);
+
         albumEntity.setArtists(artistEntitySet);
+
+
+
+
 
         AlbumEntity saved = albumRepository.save(albumEntity);
         publisher.publishEvent(new AlbumCreatedEvent(albumMapper.toResponse(saved)));

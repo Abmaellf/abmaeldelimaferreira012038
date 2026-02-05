@@ -1,4 +1,4 @@
-package select.music.repository;
+package select.music.repository.author;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import select.music.domain.author.AuthorEntity;

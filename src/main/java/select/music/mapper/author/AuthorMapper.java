@@ -1,4 +1,4 @@
-package select.music.mapper;
+package select.music.mapper.author;
 
 import org.mapstruct.*;
 import select.music.domain.author.AuthorEntity;

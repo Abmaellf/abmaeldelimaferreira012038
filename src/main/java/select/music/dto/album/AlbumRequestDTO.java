@@ -1,10 +1,9 @@
 package select.music.dto.album;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.NotBlank;
+import select.music.dto.music.MusicRequest;
 
 import java.util.Set;
 import java.util.UUID;
@@ -29,5 +28,6 @@ public record AlbumRequestDTO(
                 example = "[\"550e8400-e29b-41d4-a716-446655440000\"]"
         )
         @NotEmpty
-        Set<UUID> artistIds) {
+        Set<UUID> artistIds,
+        @NotNull @Size(min = 1) Set<MusicRequest> musics ){
 }
