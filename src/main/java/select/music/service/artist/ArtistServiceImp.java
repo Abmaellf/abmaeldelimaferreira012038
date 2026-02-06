@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import select.music.domain.artist.ArtistEntity;
+import select.music.domain.artist.ArtistType;
 import select.music.dto.artist.ArtistRequest;
 import select.music.dto.artist.ArtistResponse;
 import select.music.exception.ArtistAlreadyExistsException;
@@ -35,6 +36,9 @@ public class ArtistServiceImp implements  ArtistService {
                 });
 
         ArtistEntity entity = artistMapper.toEntity(artistRequest);
+//        if (entity.getType() == null) {
+//            entity.setType(ArtistType.SOLO);
+//        }
         System.out.println(entity.getType());
         ArtistEntity saved = artistRepository.save(entity);
 

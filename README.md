@@ -34,9 +34,7 @@ Para detalhes profundos sobre como o sistema foi construído, consulte nossos gu
 
 - [🗄️ Modelagem de Banco de Dados](docs/guias/01-banco-dados.md)
 - [🗄️ Analise de requisitos](docs/guias/05-analise-requisitos.md)
-- [🏗️ Arquitetura e Decisões](./docs/guias/02-arquitetura.md)
-- [📡 API REST e Contratos](./docs/guias/03-api.md)
-- [🧪 Estratégia de Testes (Unit & E2E)](./docs/guia/04-testes.md)
+- [🗄️ Guia de execução da api](docs/guias/06-guia-execucao.md)
 
 
 ---
@@ -44,13 +42,161 @@ Para detalhes profundos sobre como o sistema foi construído, consulte nossos gu
 ## 🚀 Como Executar
 
 ### Passo a Passo Rápido
-1.  **Clone o repositório:** `git clone https://github.com/Abmaellf/abmaeldelimaferreira012038.git`
-2.  **Configuração:** Copie o `.env.example` para `.env` e ajuste suas chaves.
-3.  **Docker:** Execute ` comando ` .
+# 🚀 Executando o Projeto Localmente
+
+Este guia descreve o passo a passo para executar o projeto em ambiente local utilizando **Docker** e **Docker Compose**.
+
+---
+## 📌 Pré-requisitos
+
+Certifique-se de ter instalado em sua máquina:
+
+- Git
+- Docker
+- Docker Compose
+
+Verifique as instalações com:
+
+```bash
+git --version
+docker --version
+docker compose version
+```
 
 ---
 
-## 👨‍💻 Autor
+## 📥 1. Clonar o repositório
+
+```bash
+git clone https://github.com/Abmaellf/abmaeldelimaferreira012038.git
+cd abmaeldelimaferreira012038
+```
+
+
+
+---
+
+## ⚙️ 2. Configurar as variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto:
+
+```bash
+cp .env.example .env
+```
+
+Ou crie manualmente:
+
+```bash
+touch .env
+```
+
+### Exemplo de `.env`
+
+```env
+# Banco de dados
+DB_USER_MUSIC=
+DB_PASSWORD_MUSIC=
+DB_NAME_MUSIC=
+DB_HOST_MUSIC=
+DB_PORT_MUSIC=
+DB_DDL_AUTO_MUSIC=
+DB_DRIVER_MUSIC=
+
+SPRING_DATASOURCE_URL_MUSIC=
+SPRING_DATASOURCE_USERNAME_MUSIC=
+SHOW_SQL_MUSIC=
+
+APP_PORT_MUSIC=
+
+JWT_SECRET_MUSIC=
+JWT_EXPIRATION_MUSIC=300000
+JWT_REFRESH_EXPIRATION_MUSIC=500000
+COOKIES_SECURE_MUSIC=
+SAME_SITE_MUSIC=None
+
+SEED_PASSWORD_ADMIN_MUSIC=
+
+CORS_ALLOWED_ORIGINS=localhost:3000
+
+MINIO_HOST_URL=http://localhost:9000
+MINIO_ROOT_USER=minioadmin
+MINIO_ROOT_PASSWORD=minioadmin
+MINIO_BUCKET=album-images
+```
+
+🔐 **Importante:**  
+O arquivo `.env` não deve ser versionado. Certifique-se de que ele esteja listado no `.gitignore`.
+
+---
+
+## 🐳 3. Subir os containers com Docker Compose
+
+Execute o comando abaixo na raiz do projeto:
+
+```bash
+docker compose up --build
+```
+
+Este comando irá:
+- Construir as imagens
+- Criar os containers
+- Inicializar a aplicação e o banco de dados
+
+---
+
+## ✅ 4. Acessar a aplicação
+
+Após a inicialização, a aplicação estará disponível em:
+
+- **API:**  
+  http://localhost:8080
+
+- **Swagger / OpenAPI:**  
+  http://localhost:8080/swagger-ui.html
+
+---
+
+## 🛑 5. Parar a aplicação
+
+Para encerrar os containers:
+
+```bash
+docker compose down
+```
+
+---
+
+## ♻️ (Opcional) Rebuild completo
+
+Caso precise recriar os containers e volumes do zero:
+
+```bash
+docker compose down -v
+docker compose up --build
+```
+
+---
+
+## 📄 Observações finais
+
+- As migrations do banco são executadas automaticamente pelo **Flyway**
+- Logs podem ser acompanhados diretamente no terminal
+- Para produção, recomenda-se o uso de variáveis de ambiente seguras
+
+---
+
+
+
+
+
+
+
+
+
+
+
+## 👨‍💻 Autor ABMAEL DE LIMA FERREIRA
+
 
 Este projeto foi desenvolvido com dedicação por **Abmael de Lima Ferreira**.
 
@@ -62,8 +208,7 @@ Este projeto foi desenvolvido com dedicação por **Abmael de Lima Ferreira**.
     Tarefas do projeto criadas via ClickUp
 [https://app.clickup.com/9013176627/v/b/li/901324721568](https://app.clickup.com/9013176627/v/b/li/901324721568) 
 
-![img_1.png](docs/image/img_1.png)
-###  👨 Analise de requisitos
         
 ---
 
+d
