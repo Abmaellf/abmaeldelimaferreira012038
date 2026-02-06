@@ -58,48 +58,48 @@ services:
         max-file: "3"
     networks:
       - network-app-music
-#  app-music:
-#    build: .
-#    container_name: app-music
-#    depends_on:
-#      postgres:
-#        condition: service_healthy
-#      minio:
-#        condition: service_healthy
-#    env_file:
-#      - .env
-#    ports:
-#      - ${APP_PORT_MUSIC}:${APP_PORT_MUSIC}
-#
-#    environment:
-#
-#      DB_USER_MUSIC: ${DB_USER_MUSIC}
-#      DB_PASSWORD_MUSIC: ${DB_PASSWORD_MUSIC}
-#      DB_NAME_MUSIC: ${DB_NAME_MUSIC}
-#      DB_HOST_MUSIC: ${DB_HOST_MUSIC}
-#      DB_PORT_MUSIC: ${DB_PORT_MUSIC}
-#      DB_DDL_AUTO_MUSIC: ${DB_DDL_AUTO_MUSIC}
-#      DB_DRIVER_MUSIC: ${DB_DRIVER_MUSIC}
-#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:${DB_PORT_MUSIC}/${DB_NAME_MUSIC}
-#      SPRING_DATASOURCE_USERNAME_MUSIC: ${SPRING_DATASOURCE_USERNAME_MUSIC}
-#      SHOW_SQL_MUSIC: ${SHOW_SQL_MUSIC}
-#
-#      APP_PORT_MUSIC: ${APP_PORT_MUSIC}
-#
-#      JWT_SECRET_MUSIC: ${JWT_SECRET_MUSIC}
-#      JWT_EXPIRATION_MUSIC: ${JWT_EXPIRATION_MUSIC}
-#      JWT_REFRESH_EXPIRATION_MUSIC: ${JWT_REFRESH_EXPIRATION_MUSIC}
-#      SEED_PASSWORD_ADMIN_MUSIC: ${SEED_PASSWORD_ADMIN_MUSIC}
-#      SEED_EMAIL_ADMIN_MUSIC: ${SEED_EMAIL_ADMIN_MUSIC}
-#      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
-#      COOKIES_SECURE_MUSIC: true
-#      SAME_SITE_MUSIC: None
-#      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
-#      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
-#      MINIO_HOST_URL: ${MINIO_HOST_URL}
-#      MINIO_BUCKET: ${MINIO_BUCKET}
-#    networks:
-#      - network-app-music
+  app-music:
+    build: .
+    container_name: app-music
+    depends_on:
+      postgres:
+        condition: service_healthy
+      minio:
+        condition: service_healthy
+    env_file:
+      - .env
+    ports:
+      - ${APP_PORT_MUSIC}:${APP_PORT_MUSIC}
+
+    environment:
+
+      DB_USER_MUSIC: ${DB_USER_MUSIC}
+      DB_PASSWORD_MUSIC: ${DB_PASSWORD_MUSIC}
+      DB_NAME_MUSIC: ${DB_NAME_MUSIC}
+      DB_HOST_MUSIC: ${DB_HOST_MUSIC}
+      DB_PORT_MUSIC: ${DB_PORT_MUSIC}
+      DB_DDL_AUTO_MUSIC: ${DB_DDL_AUTO_MUSIC}
+      DB_DRIVER_MUSIC: ${DB_DRIVER_MUSIC}
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:${DB_PORT_MUSIC}/${DB_NAME_MUSIC}
+      SPRING_DATASOURCE_USERNAME_MUSIC: ${SPRING_DATASOURCE_USERNAME_MUSIC}
+      SHOW_SQL_MUSIC: ${SHOW_SQL_MUSIC}
+
+      APP_PORT_MUSIC: ${APP_PORT_MUSIC}
+
+      JWT_SECRET_MUSIC: ${JWT_SECRET_MUSIC}
+      JWT_EXPIRATION_MUSIC: ${JWT_EXPIRATION_MUSIC}
+      JWT_REFRESH_EXPIRATION_MUSIC: ${JWT_REFRESH_EXPIRATION_MUSIC}
+      SEED_PASSWORD_ADMIN_MUSIC: ${SEED_PASSWORD_ADMIN_MUSIC}
+      SEED_EMAIL_ADMIN_MUSIC: ${SEED_EMAIL_ADMIN_MUSIC}
+      CORS_ALLOWED_ORIGINS: ${CORS_ALLOWED_ORIGINS}
+      COOKIES_SECURE_MUSIC: true
+      SAME_SITE_MUSIC: None
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      MINIO_HOST_URL: ${MINIO_HOST_URL}
+      MINIO_BUCKET: ${MINIO_BUCKET}
+    networks:
+      - network-app-music
 
 
 volumes:
