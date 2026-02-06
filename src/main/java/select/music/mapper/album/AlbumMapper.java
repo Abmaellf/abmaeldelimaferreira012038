@@ -11,10 +11,6 @@ import select.music.mapper.music.MusicMapper;
 @Mapper(componentModel = "spring", uses = { ArtistMapper.class, MusicMapper.class })
 public interface AlbumMapper {
 
-//    @Mapping(target = "updatedAt", ignore = true)
-//    @Mapping(target = "createdAt", ignore = true)
-//    @Mapping(target = "id", ignore = true)
-//    AlbumEntity toEntity(AlbumRequestDTO albumRequestDTO);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "artists", ignore = true)

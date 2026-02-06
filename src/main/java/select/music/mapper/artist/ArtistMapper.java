@@ -15,6 +15,7 @@ public interface ArtistMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
+    @Mapping(target = "type", source = "type")
     ArtistEntity toEntity(ArtistRequest request);
 
     ArtistResponse toResponse(ArtistEntity entity);
